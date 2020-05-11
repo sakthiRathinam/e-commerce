@@ -2,18 +2,23 @@
 {% load static %}
 {% block content %}
 	<div class="row">
-		{% for product in products %}
+		{% for post in posts %}
 		<div class="col-lg-4">
 			<div class="box-element product">
-				<img class="thumbnail" src="{{product.imageURL}}">
-				<h6><strong>{{product.name}}</strong></h6>
+				<img class="thumbnail" src="{{post.imageURL}}">
+				<h6><strong>{{post.name}}</strong></h6>
 				<hr>
-				<button data-product={{product.id}}
+				<button data-product={{post.id}}
 				data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add Cart</button>
 				<a class="btn btn-outline-success" href="#">View</a>
-				<h4 style="display:inline-block; float:right"><strong>{{product.price|floatformat:2}}</strong></h4>
+				<h4 style="display:inline-block; float:right"><strong>{{post.price|floatformat:2}}</strong></h4>
 			</div> 
 		</div>
 		{% endfor %}
+	</div>
+	<div class="row">
+		<div class="col-6"id="pagination">
+			{% include 'pagination.html' with page=posts %}
+		</div>
 	</div>
 {% endblock content %}

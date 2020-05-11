@@ -1,0 +1,48 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+	#card1{
+		border-radius: 20px 20px 20px 20px;
+		border:3px solid ;
+		border-color: rgb(222, 222, 222);
+		background: white;
+	}
+	.card{
+		border-color: white;
+	}
+
+
+</style>
+<br>
+<div class="row">
+	<div class="col-md-3" id="card1">
+		<div class="card">
+			<a class="btn btn-warning" href="{% url 'store' %}"> &#8592; Back to Purchase</a>
+			<hr>
+			<h3 style="text-align: center">profile Settings</h3>
+			<hr>
+			<img class="profile-pic" src="{{request.user.customer.image.url}}" >
+		</div>
+	</div>
+	<div class="col-md-9 " id="card1">
+		<div class="card">
+			<div class="card-body">
+				<h2>Create Order</h2>
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{form|crispy}}
+					<button type="submit" class="btn btn-primary">update information</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
