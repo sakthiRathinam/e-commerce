@@ -8,6 +8,7 @@ from .utils import cookieCart, cartData, guestOrder
 from django.contrib.auth import authenticate,login,logout
 from .forms import *
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 def store(request):
 	data = cartData(request)
 	cartItems = data['cartItems']
@@ -97,7 +98,9 @@ def loginPage(request):
 		user=authenticate(request,username=username,password=password)
 		if user is not None:
 			login(request,user)
-			return redirect('customerCreate')
+			user=request.user
+			Customer.objects.get_or_create(user=user,name=username)
+			return redirect('store')
 		else:
 			messages.info(request,'Username or password is incorrect')
 	context={}
